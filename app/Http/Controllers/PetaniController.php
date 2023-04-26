@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Investasi;
@@ -13,7 +12,7 @@ class PetaniController extends Controller
 {
     public function registerform()
     {
-        return view("auth.petani.register");
+        return view("petani.register");
     }
 
     public function register(Request $request)

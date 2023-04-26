@@ -37,13 +37,13 @@ class AuthController extends Controller
     public function editprofileform()
     {
         if (Auth::user()->role->role_name === "pakar") {
-            return view("auth.pakar.editprofile");
+            return view("pakar.editprofile");
         } else if (Auth::user()->role->role_name === "investor") {
-            return view("auth.investor.editprofile");
+            return view("investor.editprofile");
         } else if (Auth::user()->role->role_name === "petani") {
-            return view("auth.petani.editprofile");
+            return view("petani.editprofile");
         } else if (Auth::user()->role->role_name === "admin") {
-            return view("auth.admin.editprofile");
+            return view("admin.editprofile");
         }
         return redirect()->intended();
     }
@@ -88,13 +88,13 @@ class AuthController extends Controller
     public function profile()
     {
         if (Auth::user()->role->role_name === "pakar") {
-            return view("auth.pakar.profile");
+            return view("pakar.profile");
         } else if (Auth::user()->role->role_name === "investor") {
-            return view("auth.investor.profile");
+            return view("investor.profile");
         } else if (Auth::user()->role->role_name === "petani") {
-            return view("auth.petani.profile");
+            return view("petani.profile");
         } else if (Auth::user()->role->role_name === "admin") {
-            return view("auth.admin.profile");
+            return view("admin.profile");
         }
         return redirect()->intended();
     }

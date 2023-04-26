@@ -12,7 +12,7 @@ class InvestorController extends Controller
 {
     public function registerform()
     {
-        return view("auth.investor.register");
+        return view("investor.register");
     }
 
     public function register(Request $request)
@@ -24,6 +24,7 @@ class InvestorController extends Controller
             "email" => "required|unique:users",
             "address" => "required",
             "password" => "required|confirmed",
+            "rekening" => "required"
         ]);
         $biodata["password"] = Hash::make($biodata["password"]);
         $biodata["role_id"] = Role::where("role_name", "investor")->first()->id;

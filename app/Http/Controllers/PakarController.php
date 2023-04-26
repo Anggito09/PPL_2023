@@ -12,7 +12,7 @@ class PakarController extends Controller
 {
     public function registerform()
     {
-        return view("auth.pakar.register");
+        return view("pakar.register");
     }
 
     public function register(Request $request)

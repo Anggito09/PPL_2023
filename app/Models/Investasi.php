@@ -14,7 +14,7 @@ class Investasi extends Model
         "phone",
         "fund",
         "tani_id",
-        "investor_id"
+        "user_id"
     ];
 
     public function tani(){

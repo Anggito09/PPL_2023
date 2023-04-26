@@ -12,7 +12,7 @@ class AdminController extends Controller
 {
     public function registerform()
     {
-        return view("auth.admin.register");
+        return view("admin.register");
     }
 
     public function register(Request $request)
@@ -66,7 +66,7 @@ class AdminController extends Controller
             "address" => "required",
             "rekening" => "nullable",
             "password" => "nullable|confirmed",
-            "premium" => "nullable"
+//            "premium" => "nullable"
         ]);
         if ($biodata["password"]) {
             $biodata["password"] = Hash::make($biodata["password"]);

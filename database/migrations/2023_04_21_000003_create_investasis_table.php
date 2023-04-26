@@ -19,12 +19,12 @@ return new class extends Migration
             $table->string("phone");
             $table->unsignedBigInteger("tani_id");
             $table->integer("fund");
-            $table->unsignedBigInteger("investor_id");
+            $table->unsignedBigInteger("user_id");
             $table->boolean("confirmed")->nullable();
 
             $table->timestamps();
             $table->foreign("tani_id")->references("id")->on("tanis");
-            $table->foreign("investor_id")->references("id")->on("users");
+            $table->foreign("user_id")->references("id")->on("users");
         });
     }
 

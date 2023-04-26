@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('tanis', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("petani_id");
+            $table->unsignedBigInteger("user_id");
             $table->string("name");
             $table->string("phone");
             $table->string("descpetani");
@@ -23,7 +23,7 @@ return new class extends Migration
             $table->integer("fund");
             $table->timestamps();
 
-            $table->foreign("petani_id")->references("id")->on("users");
+            $table->foreign("user_id")->references("id")->on("users");
         });
     }
 

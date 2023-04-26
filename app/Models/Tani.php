@@ -15,7 +15,7 @@ class Tani extends Model
         "descpetani",
         "desclahan",
         "fund",
-        "petani_id"
+        "user_id"
     ];
 
     public function investasi(){

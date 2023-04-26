@@ -13,7 +13,7 @@ class BantutaniController extends Controller
 {
     public function daftartaniform()
     {
-        return view("bantutani.tani.daftar");
+        return view("bantutani.tani.register");
     }
 
     public function daftartani(Request $request)
@@ -25,7 +25,7 @@ class BantutaniController extends Controller
             "desclahan" => "required",
             "fund" => "required"
         ]);
-        $data["petani_id"] = Auth::user()->id;
+        $data["user_id"] = Auth::user()->id;
         $tani = new Tani($data);
         $tani->save();
         return redirect("/bantutani");
@@ -34,7 +34,7 @@ class BantutaniController extends Controller
     public function investasiform()
     {
         $petanis = Tani::all();
-        return view("bantutani.investasi.daftar", ["petanis" => $petanis]);
+        return view("bantutani.investasi.register", ["petanis" => $petanis]);
     }
 
     public function investasi(Request $request)
@@ -45,7 +45,7 @@ class BantutaniController extends Controller
             "fund" => "required",
             "tani_id" => "required"
         ]);
-        $data["investor_id"] = Auth::user()->id;
+        $data["user_id"] = Auth::user()->id;
         $request->session()->put("investasipayload", $data);
         return view("bantutani.investasi.confirm");
     }
@@ -57,7 +57,7 @@ class BantutaniController extends Controller
             $investasi = new Investasi($data);
             $investasi->save();
             $request->session()->forget("investasipayload");
-        }else{
+        } else {
             return redirect("/investasi");
         }
         return redirect("https://wa.me/6282340968471");
@@ -66,35 +66,28 @@ class BantutaniController extends Controller
     public function listbantutani()
     {
         $tanis = Auth::user()->tani;
-        return view("auth.petani.listbantutani", ["tanis" => $tanis]);
+        return view("petani.bantutani", ["tanis" => $tanis]);
     }
 
     public function listinvestasi()
     {
         if (Auth::user()->role->role_name === "petani") {
             $investasis = Auth::user()->investor;
-            return view("auth.petani.transaksi", ["investasis" => $investasis]);
+            return view("petani.transaksi", ["investasis" => $investasis]);
         } else if (Auth::user()->role->role_name === "investor") {
             $investasis = Auth::user()->investasi;
-            return view("auth.investor.transaksi", ["investasis" => $investasis]);
-        } else if (Auth::user()->role->role_name === "admin"){
+            return view("investor.transaksi", ["investasis" => $investasis]);
+        } else if (Auth::user()->role->role_name === "admin") {
             $investasis = Investasi::all();
-            return view("auth.admin.listinvestasi", ["investasis" => $investasis]);
+            return view("admin.listinvestasi", ["investasis" => $investasis]);
         }
     }
-
-    public function confirminvestasilist()
-    {
-        $investasis = Investasi::all();
-        return view("auth.admin.listinvestasi", ["investasis" => $investasis]);
-    }
-
     public function confirminvestasi($id)
     {
         $investasi = Investasi::find($id);
         $investasi->confirmed = !$investasi->confirmed;
         $investasi->save();
-        return redirect("/investasis");
+        return back();
     }
 
     public function index()
@@ -103,6 +96,9 @@ class BantutaniController extends Controller
             return view("bantutani.investasi.index");
         } else if (Auth::user()->role->role_name === "petani") {
             return view("bantutani.tani.index");
+        } else if (Auth::user()->role->role_name === "admin") {
+            $investasis = Investasi::all();
+            return view("bantutani.admin", ["investasis" => $investasis]);
         }
     }
 }
